@@ -1,0 +1,27 @@
+.editor-pane {
+  margin: 4px;
+
+  .card-body {
+    grid-template-columns: 240px auto;
+    row-gap: 8px;
+  }
+
+  .proc-items,
+  .build-steps {
+    padding: 0 8px;
+    min-width: 240px;
+  }
+
+  .proc-item-editor {
+    padding: 0 8px;
+    min-width: 240px;
+  }
+
+  .proc-item-offset {
+    width: 240px;
+  }
+
+  .btn-delete {
+    margin-top: 4px;
+  }
+}

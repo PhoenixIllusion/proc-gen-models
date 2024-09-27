@@ -1,0 +1,35 @@
+.path-editor {
+  display: flex;
+  flex-direction: column;
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  button {
+    flex: 1;
+  }
+}
+
+svg {
+  .line {
+    stroke: yellow;
+    stroke-width: 0.01;
+    fill: none;
+  }
+
+  .p {
+    fill: #999999
+  }
+
+  .control-point {
+    fill: none;
+    stroke-width: 0.03;
+    stroke: white;
+
+    &.active {
+      stroke: red;
+    }
+  }
+}
