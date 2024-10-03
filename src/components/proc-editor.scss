@@ -2,23 +2,31 @@
   margin: 4px;
 
   .card-body {
-    grid-template-columns: 240px auto;
+    grid-template: 'l panel'
+                   'l steps';
     row-gap: 8px;
   }
 
-  .proc-items,
-  .build-steps {
+  .proc-items {
     padding: 0 8px;
     min-width: 240px;
+  }
+
+  .proc-items {
+    grid-area: l;
+  }
+  .build-step-editor {
+    grid-area: steps;
   }
 
   .proc-item-editor {
     padding: 0 8px;
     min-width: 240px;
+    grid-area: panel;
   }
 
   .proc-item-offset {
-    width: 240px;
+    width: 320px;
   }
 
   .btn-delete {

@@ -1,7 +1,7 @@
 import { Component, createMemo, createSignal } from "solid-js";
-import { F2, F3, F4 } from "../Proc/types";
+import { F2, F3, F4 } from "../../Proc/types";
 import './path-editor.scss';
-import InputEditor from "./input-edtior";
+import InputEditor from "../ui/input-editor";
 
 export interface PathEditorProps {
   width: number;
@@ -60,7 +60,9 @@ const component: Component<PathEditorProps> = ({ width, height, step, min, max, 
   const viewBox = `${-(width / 2 + step)} ${-(height / 2 + step)} ${width + 2 * step} ${height + 2 * step}`
 
   const line = () => {
+    if(points.get().length > 0)
     return <path d={'M ' + points.get().map(([x, y]) => `${x} ${y} `).join('')} class='line'></path>
+    return <></>
   }
 
   const controlPoints = () => {
@@ -117,11 +119,11 @@ const component: Component<PathEditorProps> = ({ width, height, step, min, max, 
       <InputEditor
         type="number" label='Min'
         step={step}
-        getVal={() => '' + UnDefCheck(curPoint()[3], min())} setVal={(val) => setPointMinMax('min', val == '' ? undefined : parseFloat(val))}></InputEditor>
+        getVal={() => '' + UnDefCheck((curPoint()||[])[3], min())} setVal={(val) => setPointMinMax('min', val == '' ? undefined : parseFloat(val))}></InputEditor>
       <InputEditor
         type="number" label='Max'
         step={step}
-        getVal={() => '' + UnDefCheck(curPoint()[2], max())} setVal={(val) => setPointMinMax('max', val == '' ? undefined : parseFloat(val))}></InputEditor>
+        getVal={() => '' + UnDefCheck((curPoint()||[])[2], max())} setVal={(val) => setPointMinMax('max', val == '' ? undefined : parseFloat(val))}></InputEditor>
     </div>
   )
 }

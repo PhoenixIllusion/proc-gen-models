@@ -1,14 +1,16 @@
+import { FormControl, InputGroup } from "solid-bootstrap";
 import { Component } from "solid-js";
 
 interface IncDecInputEditorProps {
   label: string;
   count?: number;
-  classList: Record<string, boolean>;
+  class?: string;
   getVal: () => [number, number, number];
   setVal: (idx: number, val: number) => void
 }
 
-const IncDecInputEditor: Component<IncDecInputEditorProps> = ({ label, getVal, setVal, count, classList }: IncDecInputEditorProps) => {
+const IncDecInputEditor: Component<IncDecInputEditorProps> = (prop: IncDecInputEditorProps) => {
+  const { label, getVal, setVal, count } = prop;
   const inputs: [HTMLInputElement | undefined, HTMLInputElement | undefined, HTMLInputElement | undefined] = [undefined, undefined, undefined];
 
   const OnChange = (idx: number, val: number) => {
@@ -16,14 +18,14 @@ const IncDecInputEditor: Component<IncDecInputEditorProps> = ({ label, getVal, s
   }
 
   const keys = Array(count || 3).keys();
-  return <div class="input-group input-group-sm" classList={classList} >
-    <span class="input-group-text">{label}</span>
+  return <InputGroup class={prop.class} >
+    <InputGroup.Text>{label}</InputGroup.Text>
     {[...keys].map(idx => (
-      <input ref={inputs[idx]}
-        type="number" class="form-control"
+      <FormControl ref={inputs[idx]}
+        type="number"
         value={getVal()[idx]} step="0.1"
         onChange={() => OnChange(idx, parseFloat(inputs[idx]!.value))} />
     ))}
-  </div>
+  </InputGroup>
 }
 export default IncDecInputEditor;

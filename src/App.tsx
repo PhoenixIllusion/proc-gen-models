@@ -11,7 +11,7 @@ const setup = (three: ThreeScene) => {
   root.name = 'grid';
   scene.add(root);
   const size = 2;
-  const divisions = size * 5;
+  const divisions = size * 10;
 
   const gridHelperXZ = new GridHelper(size, divisions, 0xFF0000);
   root.add(gridHelperXZ);
@@ -25,21 +25,19 @@ const setup = (three: ThreeScene) => {
   renderer.setAnimationLoop(animate);
 }
 
-const buildModel = (three: ThreeScene, itemMap: Map<string, Mesh>, item: ProcItem<BuildStep>) => {
-  if (!itemMap.has(item.id)) {
-    const obj = new Mesh(new BufferGeometry());
-    itemMap.set(item.id, obj);
-    three.scene.add(obj);
-    buildProcItem(item, obj);
-  }
-}
-
-const highlightModel = (three: ThreeScene, itemMap: Map<string, Mesh>, item: ProcItem<BuildStep>) => {
-  if (itemMap.has(item.id)) {
-    const obj = itemMap.get(item.id);
-    const grid = three.scene.getObjectByName('grid');
-    if (obj && grid) {
-      grid.position.copy(obj.position);
+const highlightModel = (three: ThreeScene, itemMap: Map<string, Mesh>, item?: ProcItem<BuildStep>) => {
+  if (item) {
+    if(!itemMap.has(item.id)) {
+      const obj = new Mesh(new BufferGeometry());
+      itemMap.set(item.id, obj);
+      three.scene.add(obj);
+      buildProcItem(item, obj);
+    } else {
+      const obj = itemMap.get(item.id);
+      const grid = three.scene.getObjectByName('grid');
+      if (obj && grid) {
+        grid.position.copy(obj.position);
+      }
     }
   }
 }
